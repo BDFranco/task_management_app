@@ -1,0 +1,35 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  username: <%= ENV["DB_USERNAME"] || "myuser" %>
+  password: <%= ENV["DB_PASSWORD"] || "mypassword" %>
+  host: <%= ENV["DB_HOST"] || "localhost" %>
+  port: 5432
+
+development:
+  <<: *default
+  database: task_management_app_dev
+
+test:
+  <<: *default
+  database: test_task_management_app
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: task_management_default_app_production
+    username: <%= ENV["TASK_MANAGEMENT_APP_DATABASE_USERNAME"] %>
+    password: <%= ENV["TASK_MANAGEMENT_APP_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: task_management_app_primary_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: task_management_app_primary_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: task_management_app_primary_cable
+    migrations_paths: db/cable_migrate

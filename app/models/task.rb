@@ -5,4 +5,4 @@ class Task < ApplicationRecord
     validates :status, presence: true
     validates :due_date, presence: true
     validates :assigned_to, presence: true
-  end
+end

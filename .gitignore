@@ -35,3 +35,7 @@
 
 # Ignore custom env files
 config/database.yml.env
+
+# Ignore database.yml
+config/database.yml
+config/database.example

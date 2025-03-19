@@ -11,6 +11,7 @@ class Task < ApplicationRecord
     validates :status, presence: true, inclusion: { in: STATUSES }
     validates :due_date, presence: true
     validates :assigned_to, presence: true
+    validate :due_date_cannot_be_in_the_past
 
     # Define
     def pending?
@@ -23,5 +24,11 @@ class Task < ApplicationRecord
 
     def completed?
         status == "completed"
+    end
+
+    def due_date_cannot_be_in_the_past
+        if due_date.present? && due_date < Date.today
+          errors.add(:due_date, "cannot be in the past")
+        end
     end
 end

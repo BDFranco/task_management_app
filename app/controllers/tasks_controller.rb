@@ -1,11 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: [ :edit, :update, :mark_as_completed ]
-  before_action :authorize_admin, only: [ :new, :create ]
-
-    before_action :authenticate_user!
-    before_action :set_task, only: [ :edit, :update ]
-    before_action :authorize_admin, only: [ :new, :create, :delete ] # Added destroy to the list of actions
+  before_action :authorize_admin, only: [ :new, :create, :destroy ]
 
 
   def index
@@ -27,6 +23,12 @@ class TasksController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to tasks_path, notice: "Task deleted successfully."
   end
 
   def edit

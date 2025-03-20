@@ -1,0 +1,29 @@
+<h1>Task List</h1>
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <%= form.select :status, options_for_select([
+    ['All', ''],
+    ['Pending', 'pending'],
+    ['In Progress', 'in_progress'],
+    ['Completed', 'completed']
+  ], params[:status]) %>
+  <%= form.submit 'Filter' %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.status %></td>
+        <td><%= task.due_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

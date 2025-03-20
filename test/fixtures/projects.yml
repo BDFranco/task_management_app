@@ -1,11 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+project_1:
+  name: "Project 1"
 
-one:
-  name: MyString
-  description: MyText
-  created_by: 1
-
-two:
-  name: MyString
-  description: MyText
-  created_by: 1
+project_2:
+  name: "Project 2"

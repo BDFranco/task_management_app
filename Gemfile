@@ -63,3 +63,5 @@ group :test do
 end
 
 gem "dotenv-rails", "~> 3.1"
+
+gem "bcrypt", "~> 3.1.7"

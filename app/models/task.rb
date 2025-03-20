@@ -12,6 +12,7 @@ class Task < ApplicationRecord
     validates :due_date, presence: true
     validates :assigned_to, presence: true
     validate :due_date_cannot_be_in_the_past
+    validates :project_id, presence: true
 
     # Define
     def pending?

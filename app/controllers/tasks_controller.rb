@@ -1,19 +1,14 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_task, only: [ :edit, :update, :mark_as_completed ]
-  before_action :authorize_admin, only: [ :new, :create ]
-
-    before_action :authenticate_user!
-    before_action :set_task, only: [ :edit, :update ]
-    before_action :authorize_admin, only: [ :new, :create, :delete ] # Added destroy to the list of actions
-
+  before_action :set_task, only: [:edit, :update, :destroy, :mark_as_completed]
+  before_action :authorize_admin, only: [:index, :show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all.order(:due_date)
   end
 
   def dashboard
-    @tasks = Task.where(assigned_to: current_user.id).order(:due_date) # Only show tasks assigned to the current user
+    @tasks = Task.where(assigned_to: current_user.id).order(:due_date)
   end
 
   def new
@@ -47,7 +42,11 @@ class TasksController < ApplicationController
     end
   end
 
-  # Custom action to mark a task as completed
+  def destroy
+    @task.destroy
+    redirect_to tasks_path, notice: "Task deleted successfully."
+  end
+
   def mark_as_completed
     if @task.assigned_to == current_user.id
       @task.update(status: "completed", completed_at: Time.current)

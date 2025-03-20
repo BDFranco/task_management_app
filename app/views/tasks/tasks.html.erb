@@ -9,6 +9,13 @@
   <%= form.submit 'Filter' %>
 <% end %>
 
+<!-- Sorting links -->
+<p>
+  Sort by:
+  <%= link_to "Due Date", tasks_path(sort_by: "due_date") %> |
+  <%= link_to "Status", tasks_path(sort_by: "status") %>
+</p>
+
 <table>
   <thead>
     <tr>

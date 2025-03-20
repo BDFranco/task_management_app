@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
     before_action :authenticate_user!
     before_action :set_task, only: [ :edit, :update ]
-    before_action :admin_only, only: [ :new, :create ]
+    before_action :authorize_admin, only: [ :new, :create ]
+
 
     def index
       @tasks = Task.all.order(:due_date)
@@ -46,9 +47,5 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:title, :description, :status, :due_date, :assigned_to)
-    end
-
-    def admin_only
-      redirect_to tasks_path, alert: "Only Admins can perform this action." unless current_user.admin?
     end
 end

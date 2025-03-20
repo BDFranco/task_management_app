@@ -1,0 +1,26 @@
+<h1>My Assigned Tasks</h1>
+
+<% if @tasks.any? %>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Due Date</th>
+      <th>Actions</th>
+    </tr>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.status %></td>
+        <td><%= task.due_date %></td>
+        <td>
+          <% if task.status != "completed" %>
+            <%= link_to "Mark as Completed", mark_as_completed_task_path(task), method: :patch, data: { confirm: "Are you sure?" } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>No tasks assigned to you yet.</p>
+<% end %>

@@ -5,7 +5,14 @@ class TasksController < ApplicationController
 
 
   def index
-    @tasks = Task.all.order(:due_date)
+    @tasks = Task.all
+
+    # sort due date or complete
+    if params[:sort_by] == "due_date"
+      @tasks = @tasks.order(due_date: :asc)
+    elsif params[:sort_by] == "status"
+      @tasks = @tasks.order(status: :asc)
+    end
 
     # Apply status filtering if a status is selected
     if params[:status].present?

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  get "users/profile"
   devise_for :users
+  root to: "projects#index"
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
 # Projects routes (CRUD)
@@ -15,4 +17,17 @@ resources :projects
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Logout route fix
+  devise_scope :user do
+    delete "users/sign_out", to: "devise/sessions#destroy"
+  end
+
+  # Dashboard and Profile routes
+  get "dashboard", to: "users#dashboard", as: :dashboard
+  get "profile", to: "users#profile", as: :profile
+
+  # Editing Profile routes
+  get "profile/edit", to: "users#edit", as: :edit_profile
+  patch "profile/update", to: "users#update", as: :update_profile
 end

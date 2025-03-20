@@ -1,0 +1,27 @@
+<h1 class="text-2xl font-bold mb-4">Edit Profile</h1>
+<%= form_for @user, url: update_profile_path, method: :patch do |f| %>
+  <div class="mb-4">
+    <%= f.label :name, class: "block text-gray-700 font-bold" %>
+    <%= f.text_field :name, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :email, class: "block text-gray-700 font-bold" %>
+    <%= f.email_field :email, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :password, "New Password (optional)", class: "block text-gray-700 font-bold" %>
+    <%= f.password_field :password, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :password_confirmation, "Confirm Password", class: "block text-gray-700 font-bold" %>
+    <%= f.password_field :password_confirmation, class: "w-full p-2 border rounded" %>
+  </div>
+
+  <div class="flex justify-between">
+    <%= f.submit "Save Changes", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <%= link_to "Cancel", profile_path, class: "text-gray-500 hover:underline" %>
+  </div>
+<% end %>

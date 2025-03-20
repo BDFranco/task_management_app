@@ -1,0 +1,30 @@
+<h1>Welcome to the Homepage</h1>
+
+<h2>All Projects</h2>
+<% if @projects.any? %>
+  <ul>
+    <% @projects.each do |project| %>
+      <li>
+        <strong><%= project.name %></strong> - <%= project.description %>
+
+        <!-- List tasks under the project -->
+        <h3>Assigned Tasks:</h3>
+        <% if project.tasks.any? %>
+          <ul>
+            <% project.tasks.each do |task| %>
+              <li>
+                <strong><%= task.title %></strong> - <%= task.status %>
+                <br>
+                <small>Due: <%= task.due_date || "No deadline" %></small>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>No tasks assigned to this project.</p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No projects available yet.</p>
+<% end %>

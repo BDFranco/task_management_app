@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
     before_action :authenticate_user!
     before_action :set_task, only: [ :edit, :update ]
-    before_action :authorize_admin, only: [ :new, :create ]
+    before_action :authorize_admin, only: [ :new, :create, :delete ] #Added destroy to the list of actions
 
 
     def index

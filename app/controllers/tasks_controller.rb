@@ -6,7 +6,15 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.order(:due_date)
+
+    # Apply status filtering if a status is selected
+    if params[:status].present?
+      @tasks = @tasks.where(status: params[:status])
+    end
+
+    render "tasks"
   end
+
 
   def dashboard
     @tasks = Task.where(assigned_to: current_user.id).order(:due_date) # Only show tasks assigned to the current user
